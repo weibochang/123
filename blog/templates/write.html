@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block jquery %}
+    <script src="/static/js/editor/kindeditor/kindeditor-all-min.js"></script>
+    <script src="/static/js/editor/kindeditor/lang/zh-CN.js"></script>
+    <script src="/static/js/editor/kindeditor/themes/default/default.css"></script>
+    <script>
+        KindEditor.ready(function (k) {
+            window.editor = k.create('#editor_id', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageRemote: false,
+                {#处理url#}
+                uploadJson: '/blog/upload/kindeditor',
+
+            });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <form action="{% url 'blog:write' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        标题：<input type="text" name="title"><br>
+
+        分类：<select name="cate" id="">
+        {% for foo in cate %}
+            <option value="{{ foo.id }}">{{ foo.name }}</option>
+        {% endfor %}</select>
+
+
+        标签：<select name="tag" id="">
+        {% for tag in tags %}
+            <option value="{{ tag.id }}">{{ tag.name }}</option>
+
+        {% endfor %}
+
+    </select>
+        <textarea placeholder="您的内容" name="con" id="editor_id"></textarea>
+        <input type="file" name="img">
+        <button type="submit">提交</button>
+        <button type="reset">重置</button>
+    </form>
+{% endblock content %}

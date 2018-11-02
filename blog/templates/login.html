@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %} {# 这个表示什么意思啊，是不是吧静态文件加载到自己的html文件中 #}
+{% block title %}登录{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-login' action="/user/login/" method="post">
+
+                {% if msg %}
+                    <div class="alert alert-warning">{{ msg }}</div>
+                {% endif %}
+                {% csrf_token %}
+                <h2 class="text-center">欢迎登录</h2>
+                <div class="form-group">
+                    {{ login_form.username.label_tag }}
+                    {{ login_form.username }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password.label_tag }}
+                    {{ login_form.password }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.captcha.errors }}
+                    {{ login_form.captcha.label_tag }}
+                    {{ login_form.captcha }}<a href="">换一张</a>
+                </div>
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">提交</button>
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

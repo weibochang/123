@@ -1,0 +1,37 @@
+<div class="widget widget_hot">
+    <h3>最新评论文章</h3>
+    <ul>
+        {% for post in comment_list %}
+            <li><a title="{{ post.title }}" href="{% url 'blog:show' post.id %}"><span
+                    class="thumbnail">
+
+                    <img class="thumb"
+                         data-original="/media/{{ post.img }}"
+                         src="/media/{{ post.img }}"
+                         alt="{{ post.title }}" style="display: block;">
+                </span><span class="text">{{ post.title }}</span><span class="muted"><i
+                    class="glyphicon glyphicon-time"></i>
+                    {{ post.pub_date }} <br>
+                </span><span class="muted"><i
+                    class="glyphicon glyphicon-eye-open"></i>{{ post.views_num }}</span></a></li>
+
+        {% endfor %}
+    </ul>
+
+</div>
+{% for poster in poster_list %}
+    <div class="widget widget_sentence">
+        <a href='{{ poster.link }}' target="_blank" rel="nofollow" title="{{ poster.title }}">
+            <img style="width: 100%" src="/{{ poster.img }}"
+                 alt="{{ poster.title }}"></a>
+    </div>
+{% endfor %}
+<div class="widget widget_sentence">
+    <h3>友情链接</h3>
+    <div class="widget-sentence-link">
+        {% for flink in friendly_link_list %}
+            <a href="{{ flink.link }}" title="{{ flink.title }}" target="_blank">{{ flink.title }}</a>&nbsp;
+            &nbsp;&nbsp;
+        {% endfor %}
+    </div>
+</div>

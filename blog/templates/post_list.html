@@ -1,0 +1,30 @@
+{% for post in page_list %}
+{#    <img src="/static/images/bad_img/bad_img.png" alt="1234123412341234123412341234123" id="999">#}
+    <article class="excerpt excerpt-1" style="">
+{#        <img src="/static/bad_img/bad_img.png" alt="1234123412341234123412341234123" id="999">#}
+
+        <a class="focus" href="{% url 'blog:show' post.id %}" title="{{ post.title }}"
+           target="_blank">
+            <img class="thumb"
+                 data-original="/media/{{ post.img }}"
+                 src="/media/{{ post.img }}"
+                 alt="{{ post.title }}" style="display: inline;">
+        </a>
+        <header><a class="cat" href="{% url 'blog:show' post.id %}" title="{{ post.title }}">{{ post.title }}<i></i></a>
+            <h2><a href="{% url 'blog:show' post.id %}" title="{{ post.title }}"
+                   target="_blank">{{ post.title }}</a>
+            </h2>
+        </header>
+        <p class="meta">
+            <time class="time"><i class="glyphicon glyphicon-time"></i>{{ post.pub_date }}</time>
+            <span class="views"><i class="glyphicon glyphicon-eye-open"></i> {{ post.views_num }}</span>
+            <a
+                    class="comment"
+                    href="{% url 'blog:show' post.id %}"
+                    title="评论"
+                    target="_blank"><i
+                    class="glyphicon glyphicon-comment"></i> {{ post.comment_set.count }}</a>
+        </p>
+        <p class="note">{{ post.content|safe }}</p>
+    </article>
+{% endfor %}
